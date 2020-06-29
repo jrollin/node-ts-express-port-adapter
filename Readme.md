@@ -1,7 +1,7 @@
 # Express with typescript
 
 
-WIP : ddd + port/adapter
+WIP : ddd + port/adapter implementation
 
 
 ## Stack
@@ -22,6 +22,12 @@ conventions
 * tslint
 * prettier
 
+Validation 
+
+* validatorjs
+
+Log : @TODO
+
 Testing:
 
 * jest
@@ -32,5 +38,5 @@ Testing:
 TODO : mappers :
 
 * From Domain to DTO
-* From Domain to Persistence
-* From Persistence to Domain
+* From Domain to Persistence : @TODO
+* From Persistence to Domain : @TODO

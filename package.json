@@ -18,6 +18,7 @@
     "@types/helmet": "0.0.47",
     "@types/morgan": "^1.9.1",
     "@types/uuid": "^8.0.0",
+    "@types/validatorjs": "^3.15.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -25,7 +26,8 @@
     "helmet": "^3.23.3",
     "morgan": "^1.10.0",
     "ts-node": "^8.10.2",
-    "uuid": "^8.2.0"
+    "uuid": "^8.2.0",
+    "validatorjs": "^3.18.1"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",

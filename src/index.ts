@@ -4,11 +4,13 @@ import helmet from 'helmet'
 import cors from 'cors'
 
 import * as dotenv from 'dotenv'
-import { configureProjectRouter } from './adapters/rest/ProjectRouter'
+import { configureProjectRouter } from './adapters/rest/router/ProjectRouter'
 import { InMemoryProjectRepo } from './adapters/persistence/InMemoryProjectRepo'
-import { configureDefaultRoutes } from './adapters/rest/DefaultRouter'
+import { configureDefaultRoutes } from './adapters/rest/router/DefaultRouter'
 import { GetAllProjectsService } from './core/service/GetAllProjectsService'
 import bodyParser from 'body-parser'
+import { GetProjectByProjectIDService } from './core/service/GetProjectByProjectIDService';
+import { CreateProjectService } from './core/service/CreateProjectService';
 
 // config
 dotenv.config()
@@ -17,7 +19,7 @@ if (!process.env.PORT) {
 }
 
 const app: express.Application = express()
-app.use(bodyParser())
+app.use(bodyParser.json())
 app.use(morgan('tiny'))
 app.use(helmet())
 app.use(cors())
@@ -27,8 +29,11 @@ configureDefaultRoutes(app)
 
 // projects routes
 const projectRepo = new InMemoryProjectRepo()
-const listAllProjects = new GetAllProjectsService(projectRepo)
-configureProjectRouter(app, listAllProjects)
+projectRepo.loadfakeData()
+const getAllProjects = new GetAllProjectsService(projectRepo)
+const getProjectByProjectIDService = new GetProjectByProjectIDService(projectRepo)
+const createProjectService = new CreateProjectService(projectRepo)
+configureProjectRouter(app, getAllProjects, getProjectByProjectIDService, createProjectService)
 
 // server
 const PORT: number = parseInt(process.env.PORT as string, 10)
