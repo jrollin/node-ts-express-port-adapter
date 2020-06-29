@@ -6,12 +6,14 @@ import { ProjectID } from '../../../core/domain/ProjectID'
 import { ProjectMapper } from '../dto/ProjectMapper'
 import { ProjectCollectionMapper } from '../dto/ProjectCollectionMapper'
 import { ValidationError } from '../../../core/domain/ValidationError'
+import { LoggerGateway } from '../../../core/port/LoggerGateway';
 
 export const configureProjectRouter = (
   app: Application,
   listAllProjects: GetAllProjectsUseCase,
   getProjectByProjectID: GetProjectByProjectIDUseCase,
-  createProject: CreateProjectUseCase
+  createProject: CreateProjectUseCase,
+  logger: LoggerGateway
 ) => {
   const router = express.Router()
 
@@ -40,8 +42,10 @@ export const configureProjectRouter = (
       await createProject.createProject(req.body)
     } catch (err) {
       if (err instanceof ValidationError) {
+        logger.error('Validation error when creating project', err)
         return res.status(422).send(err.getErrors())
       } else {
+        logger.error('exception when creating project', err)
         throw err
       }
     }

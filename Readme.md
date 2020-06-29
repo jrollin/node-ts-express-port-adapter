@@ -27,7 +27,9 @@ Validation
 
 * validatorjs
 
-Log : @TODO
+Log :
+
+* pino
 
 Testing:
 

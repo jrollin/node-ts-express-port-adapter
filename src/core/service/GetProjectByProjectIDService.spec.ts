@@ -1,13 +1,16 @@
 import { GetProjectByProjectIDService } from './GetProjectByProjectIDService'
 import { InMemoryProjectRepo } from '../../adapters/persistence/InMemoryProjectRepo'
+import { InMemoryLoggerGateway } from '../../adapters/gateway/InMemoryLoggerGateway';
 
 describe('GetProjectByProjectIDService', () => {
   let projectRepo: InMemoryProjectRepo
   let service: GetProjectByProjectIDService
+  let logger: InMemoryLoggerGateway
 
   beforeEach(() => {
     projectRepo = new InMemoryProjectRepo()
-    service = new GetProjectByProjectIDService(projectRepo)
+    logger = new InMemoryLoggerGateway()
+    service = new GetProjectByProjectIDService(projectRepo, logger)
   })
 
   it('should return null project when not found', async () => {

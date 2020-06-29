@@ -1,13 +1,16 @@
 import { InMemoryProjectRepo } from '../../adapters/persistence/InMemoryProjectRepo'
 import { GetAllProjectsService } from './GetAllProjectsService'
+import { InMemoryLoggerGateway } from '../../adapters/gateway/InMemoryLoggerGateway';
 
 describe('GetAllProjectsService', () => {
   let projectRepo: InMemoryProjectRepo
   let service: GetAllProjectsService
+  let logger: InMemoryLoggerGateway
 
   beforeEach(() => {
     projectRepo = new InMemoryProjectRepo()
-    service = new GetAllProjectsService(projectRepo)
+    logger = new InMemoryLoggerGateway()
+    service = new GetAllProjectsService(projectRepo, logger)
   })
 
   

@@ -17,6 +17,7 @@
     "@types/cors": "^2.8.6",
     "@types/helmet": "0.0.47",
     "@types/morgan": "^1.9.1",
+    "@types/pino": "^6.3.0",
     "@types/uuid": "^8.0.0",
     "@types/validatorjs": "^3.15.0",
     "body-parser": "^1.19.0",
@@ -25,6 +26,7 @@
     "express": "^4.17.1",
     "helmet": "^3.23.3",
     "morgan": "^1.10.0",
+    "pino": "^6.3.2",
     "ts-node": "^8.10.2",
     "uuid": "^8.2.0",
     "validatorjs": "^3.18.1"

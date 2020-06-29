@@ -1,13 +1,16 @@
 import { InMemoryProjectRepo } from '../../adapters/persistence/InMemoryProjectRepo'
 import { CreateProjectService } from './CreateProjectService'
+import { InMemoryLoggerGateway } from '../../adapters/gateway/InMemoryLoggerGateway';
 
 describe('CreateProjectService', () => {
   let projectRepo: InMemoryProjectRepo
   let service: CreateProjectService
+  let logger: InMemoryLoggerGateway
 
   beforeEach(() => {
     projectRepo = new InMemoryProjectRepo()
-    service = new CreateProjectService(projectRepo)
+    logger = new InMemoryLoggerGateway()
+    service = new CreateProjectService(projectRepo, logger)
   })
 
   describe.each([[{ title: '' }], [{ title: 'te' }]])('create project with invalid data should fails', (data) => {

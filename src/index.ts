@@ -2,15 +2,17 @@ import express from 'express'
 import morgan from 'morgan'
 import helmet from 'helmet'
 import cors from 'cors'
+import bodyParser from 'body-parser'
+import pino from 'pino'
 
 import * as dotenv from 'dotenv'
 import { configureProjectRouter } from './adapters/rest/router/ProjectRouter'
 import { InMemoryProjectRepo } from './adapters/persistence/InMemoryProjectRepo'
 import { configureDefaultRoutes } from './adapters/rest/router/DefaultRouter'
 import { GetAllProjectsService } from './core/service/GetAllProjectsService'
-import bodyParser from 'body-parser'
-import { GetProjectByProjectIDService } from './core/service/GetProjectByProjectIDService';
-import { CreateProjectService } from './core/service/CreateProjectService';
+import { GetProjectByProjectIDService } from './core/service/GetProjectByProjectIDService'
+import { CreateProjectService } from './core/service/CreateProjectService'
+import { PinoLoggerGateway } from './adapters/gateway/PinoLoggerGateway';
 
 // config
 dotenv.config()
@@ -24,16 +26,19 @@ app.use(morgan('tiny'))
 app.use(helmet())
 app.use(cors())
 
+// logger
+const logger = new PinoLoggerGateway(pino())
+
 // default routes
 configureDefaultRoutes(app)
 
 // projects routes
 const projectRepo = new InMemoryProjectRepo()
 projectRepo.loadfakeData()
-const getAllProjects = new GetAllProjectsService(projectRepo)
-const getProjectByProjectIDService = new GetProjectByProjectIDService(projectRepo)
-const createProjectService = new CreateProjectService(projectRepo)
-configureProjectRouter(app, getAllProjects, getProjectByProjectIDService, createProjectService)
+const getAllProjects = new GetAllProjectsService(projectRepo, logger)
+const getProjectByProjectIDService = new GetProjectByProjectIDService(projectRepo, logger)
+const createProjectService = new CreateProjectService(projectRepo, logger)
+configureProjectRouter(app, getAllProjects, getProjectByProjectIDService, createProjectService, logger)
 
 // server
 const PORT: number = parseInt(process.env.PORT as string, 10)
@@ -44,6 +49,6 @@ app.listen(PORT, () => {
 })
 // track server termination
 const cleanTerminate = (signal: NodeJS.Signals): void => {
-  console.info('cleaning before terminating process ...', { signal })
+  logger.info('cleaning before terminating process ...', { signal })
   process.exit(0)
 }
