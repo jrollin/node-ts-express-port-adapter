@@ -1,5 +1,6 @@
 # Express with typescript
 
+[![CircleCI](https://circleci.com/gh/jrollin/node-ts-express-port-adapter.svg?style=svg)](https://circleci.com/gh/jrollin/node-ts-express-port-adapter)
 
 WIP : ddd + port/adapter implementation
 
