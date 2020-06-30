@@ -10,7 +10,7 @@ export class InMemoryProjectRepo implements ProjectRepo {
     this.projects.set(ProjectID.create('2').toString(), Project.create({title: 'Mon titre 2!'}, ProjectID.create('2')))
   }
 
-  getAllProjects(): Promise<Project[] | null> {
+  getAllProjects(): Promise<Project[]> {
     const projects: Project[] = [...this.projects.values()]
     return Promise.resolve(projects)
   }
@@ -24,8 +24,9 @@ export class InMemoryProjectRepo implements ProjectRepo {
   }
 
 
-  saveProject (project: Project): void {
+  saveProject (project: Project): Promise<void> {
     this.projects.set(project.projectID.toString(), project)
+    return Promise.resolve()
   }
   
 }

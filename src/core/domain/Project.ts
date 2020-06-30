@@ -4,8 +4,8 @@ import Validator from 'validatorjs';
 import { ValidationError } from './ValidationError';
 
 export class Project {
-  public readonly _id: ProjectID
-  public readonly props: ProjectProps
+  private readonly id: ProjectID
+  private props: ProjectProps
 
   validationRules: any = {
     title: 'required|min:3',
@@ -13,15 +13,16 @@ export class Project {
 
   private constructor(props: ProjectProps, id?: ProjectID) {
     this.validate(props)
-    this._id = id ? id : ProjectID.create(id)
+    this.id = id ? id : ProjectID.create(id)
     this.props = props
   }
 
   static create(props: ProjectProps, id?: ProjectID) {
     return new Project(props, id)
   }
+
   get projectID(): ProjectID {
-    return this._id
+    return this.id
   }
 
   get title(): string {
