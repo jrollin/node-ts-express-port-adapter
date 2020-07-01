@@ -21,8 +21,8 @@ describe('GetProjectByProjectIDService', () => {
 
   it('should return project if found', async () => {
     projectRepo.loadfakeData()
-    const project = await service.getProjectByProjectID('2')
+    const project = await service.getProjectByProjectID('project2')
 
-    expect(project?.projectID.toString()).toEqual('2')
+    expect(project?.projectID.toString()).toEqual('project2')
   })
 })

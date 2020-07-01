@@ -1,6 +1,7 @@
 import { InMemoryProjectRepo } from '../../adapters/persistence/InMemoryProjectRepo'
 import { CreateProjectService } from './CreateProjectService'
 import { InMemoryLoggerGateway } from '../../adapters/gateway/InMemoryLoggerGateway';
+import { CreateProjectCommand } from '../usecase/CreateProjectUseCase';
 
 describe('CreateProjectService', () => {
   let projectRepo: InMemoryProjectRepo
@@ -13,16 +14,9 @@ describe('CreateProjectService', () => {
     service = new CreateProjectService(projectRepo, logger)
   })
 
-  describe.each([[{ title: '' }], [{ title: 'te' }]])('create project with invalid data should fails', (data) => {
-    test(`with data ${JSON.stringify(data)}`, () => {
-      expect(() => {
-        service.createProject(data)
-      }).toThrow()
-    })
-  })
-
   it('should create project', async () => {
-    const res = await service.createProject({ title: 'data' })
+    const command: CreateProjectCommand = new CreateProjectCommand('test', 'description', '1')
+    const res = await service.createProject(command)
 
     expect(res).toBeUndefined()
     expect(await projectRepo.getAllProjects()).toHaveLength(1)

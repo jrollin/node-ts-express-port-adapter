@@ -42,10 +42,10 @@ export const configureProjectRouter = (
       await createProject.createProject(req.body)
     } catch (err) {
       if (err instanceof ValidationError) {
-        logger.error('Validation error when creating project', err)
+        logger.warn('Validation error when creating project', err)
         return res.status(422).send(err.getErrors())
       } else {
-        logger.error('exception when creating project', err)
+        logger.error('Error when creating project', err)
         throw err
       }
     }

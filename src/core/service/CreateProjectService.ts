@@ -1,7 +1,6 @@
 import { ProjectRepo } from '../port/ProjectRepo'
-import { CreateProjectUseCase } from '../usecase/CreateProjectUseCase'
+import { CreateProjectUseCase, CreateProjectCommand } from '../usecase/CreateProjectUseCase'
 import { Project } from '../domain/Project'
-import { ProjectProps } from '../domain/ProjectProps';
 import { LoggerGateway } from '../port/LoggerGateway';
 
 export class CreateProjectService implements CreateProjectUseCase {
@@ -13,11 +12,13 @@ export class CreateProjectService implements CreateProjectUseCase {
     this.logger = logger
   }
 
-  createProject(data: ProjectProps): void {
+  createProject(command: CreateProjectCommand): Promise<void> {
   
-    const project = Project.create(data)
+    const project = Project.create(command.getProjecProps())
     this.projectRepo.saveProject(project)
 
     this.logger.info('Project created', project)
+
+    return Promise.resolve()
   }
 }

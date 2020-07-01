@@ -1,13 +1,17 @@
 import { Project } from '../../core/domain/Project'
 import { ProjectID } from '../../core/domain/ProjectID'
 import { ProjectRepo } from '../../core/port/ProjectRepo'
+import { ProjectFixture } from '../../fixtures/ProjectFixture';
 
 export class InMemoryProjectRepo implements ProjectRepo {
   projects: Map<string, Project> = new Map()
 
   loadfakeData(): void {
-    this.projects.set(ProjectID.create('1').toString(), Project.create({title: 'Mon titre 1!'}, ProjectID.create('1')))
-    this.projects.set(ProjectID.create('2').toString(), Project.create({title: 'Mon titre 2!'}, ProjectID.create('2')))
+    const projectDraft = ProjectFixture.draftProjectWithCategory()
+    const projectPublished = ProjectFixture.publishedProjectWithCategory()
+    // store in set
+    this.projects.set(projectDraft.projectID.toString(), projectDraft)
+    this.projects.set(projectPublished.projectID.toString(), projectPublished)
   }
 
   getAllProjects(): Promise<Project[]> {
