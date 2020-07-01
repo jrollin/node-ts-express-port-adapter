@@ -1,6 +1,7 @@
 import { GetProjectByProjectIDService } from './GetProjectByProjectIDService'
 import { InMemoryProjectRepo } from '../../adapters/persistence/InMemoryProjectRepo'
-import { InMemoryLoggerGateway } from '../../adapters/gateway/InMemoryLoggerGateway';
+import { InMemoryLoggerGateway } from '../../adapters/gateway/InMemoryLoggerGateway'
+import { ProjectNotFound } from '../port/ProjectNotFound'
 
 describe('GetProjectByProjectIDService', () => {
   let projectRepo: InMemoryProjectRepo
@@ -13,10 +14,13 @@ describe('GetProjectByProjectIDService', () => {
     service = new GetProjectByProjectIDService(projectRepo, logger)
   })
 
-  it('should return null project when not found', async () => {
-    const project = await service.getProjectByProjectID('43')
-
-    expect(project).toBeNull()
+  it('should throw exception when project not found', async () => {
+    try {
+      await service.getProjectByProjectID('43')
+      fail('exception not thrown')
+    } catch (err) {
+      expect(err).toBeInstanceOf(ProjectNotFound)
+    }
   })
 
   it('should return project if found', async () => {

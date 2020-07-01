@@ -1,0 +1,1 @@
+export class ProjectNotFound extends Error {}

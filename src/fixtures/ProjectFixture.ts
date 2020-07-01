@@ -1,6 +1,7 @@
 import { Project } from '../core/domain/Project'
 import { ProjectProps } from '../core/domain/ProjectProps'
 import { CategoryID } from '../core/domain/CategoryID'
+import { ProjectID } from '../core/domain/ProjectID'
 
 export class ProjectFixture {
   static draftProjectWithCategory(): Project {
@@ -10,7 +11,7 @@ export class ProjectFixture {
       description: 'Ma description de projet qui va bien',
       categoryID: CategoryID.create('c1'),
     }
-    return Project.create(props, 'project1')
+    return Project.create(props, ProjectID.create('project1'))
   }
 
   static publishedProjectWithCategory(): Project {
@@ -21,7 +22,7 @@ export class ProjectFixture {
       description: 'Ma description de projet qui va bien',
       categoryID: CategoryID.create('c1'),
     }
-    const project:Project = Project.create(props, 'project2')
+    const project:Project = Project.create(props, ProjectID.create('project2'))
     project.publish(publishedAt)
 
     return project

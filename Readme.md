@@ -18,7 +18,7 @@ packages global or local
 * typescript
 * ts-node
 
-packages :
+Packages :
 
 * [express](https://www.npmjs.com/package/express) : framework
 * [dotenv](https://www.npmjs.com/package/dotenv): env config loader
@@ -27,7 +27,7 @@ packages :
 * [helmet](https://www.npmjs.com/package/helmet) : security middleware 
 * [morgan](https://www.npmjs.com/package/morgan) : logger middleware  
 
-conventions
+Conventions
 
 * tslint
 * prettier
@@ -36,6 +36,11 @@ Validation
 
 * [validatorjs](https://www.npmjs.com/package/validatorjs)
 
+
+File Upload 
+
+* [multer](https://www.npmjs.com/package/multer) : file middleware
+  
 Log
 
 * pino

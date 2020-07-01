@@ -1,9 +1,10 @@
 import { ProjectDTO } from './ProjectDTO'
-import { Project } from '../../../core/domain/Project'
-import { CategoryID } from '../../../core/domain/CategoryID';
+import { Project } from '../../../../core/domain/Project'
+import { ProjectCoverMapper } from './ProjectCoverMapper';
 
 export class ProjectMapper {
   public static toDTO(project: Project): ProjectDTO {
+    
     return {
       id: project.projectID.toString(),
       title: project.title,
@@ -12,6 +13,7 @@ export class ProjectMapper {
       createdAt : project.createdAt,
       updatedAt : project.updatedAt,
       publishedAt : project.updatedAt,
+      covers: ProjectCoverMapper.toDTO(project.getCovers())
     }
   }
 }

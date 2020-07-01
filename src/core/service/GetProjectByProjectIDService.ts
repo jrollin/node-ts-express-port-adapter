@@ -10,7 +10,7 @@ export class GetProjectByProjectIDService implements GetProjectByProjectIDUseCas
   constructor(projectRepo: ProjectRepo, logger: LoggerGateway) {
     this.projectRepo = projectRepo
   }
-  getProjectByProjectID(projectID: ProjectID): Promise<Project | null> {
-    return this.projectRepo.getProjectByProjectID(projectID)
+  async getProjectByProjectID(projectID: ProjectID): Promise<Project> {
+    return await this.projectRepo.getProjectByProjectID(projectID)
   }
 }

@@ -12,10 +12,10 @@ export class CreateProjectService implements CreateProjectUseCase {
     this.logger = logger
   }
 
-  createProject(command: CreateProjectCommand): Promise<void> {
+  async createProject(command: CreateProjectCommand): Promise<void> {
   
     const project = Project.create(command.getProjecProps())
-    this.projectRepo.saveProject(project)
+    await this.projectRepo.saveProject(project)
 
     this.logger.info('Project created', project)
 

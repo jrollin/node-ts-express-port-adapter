@@ -10,7 +10,7 @@ export class GetAllProjectsService implements GetAllProjectsUseCase {
     this.projectRepo = projectRepo
   }
 
-  getAllProjects(): Promise<Project[]> {
-    return this.projectRepo.getAllProjects()
+  async getAllProjects(): Promise<Project[]> {
+    return await this.projectRepo.getAllProjects()
   }
 }

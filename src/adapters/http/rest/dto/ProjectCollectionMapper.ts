@@ -1,4 +1,4 @@
-import { Project } from '../../../core/domain/Project'
+import { Project } from '../../../../core/domain/Project'
 import { ProjectCollectionDTO } from './ProjectCollectionDTO'
 import { ProjectMapper } from './ProjectMapper';
 

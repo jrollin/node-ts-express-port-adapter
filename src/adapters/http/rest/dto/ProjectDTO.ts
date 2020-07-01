@@ -1,3 +1,5 @@
+import { ProjectCoverDTO } from './ProjectCoverDTO'
+
 export interface ProjectDTO {
   id: string
   title: string
@@ -6,4 +8,5 @@ export interface ProjectDTO {
   createdAt: Date
   updatedAt?: Date
   publishedAt?: Date
+  covers?: ProjectCoverDTO[]
 }
