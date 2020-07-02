@@ -1,5 +1,4 @@
 import { ValidationError } from './ValidationError'
-import { CategoryID } from './CategoryID'
 import { ProjectCover } from './ProjectCover'
 import { ProjectCoverProps } from './ProjectCoverProps'
 import { Media } from './Media';

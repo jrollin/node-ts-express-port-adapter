@@ -4,7 +4,7 @@ import { LoggerGateway } from '../port/LoggerGateway'
 import { AddCoverToProjectCommand, AddCoverToProjectUseCase } from '../usecase/AddCoverToProjectUseCase'
 import { ProjectCover } from '../domain/ProjectCover'
 import { ProjectCoverProps } from '../domain/ProjectCoverProps'
-import { MediaRepo } from '../port/MediaRepo';
+import { MediaRepo } from '../port/MediaRepo'
 
 export class AddCoverToProjectService implements AddCoverToProjectUseCase {
   projectRepo: ProjectRepo
@@ -21,10 +21,10 @@ export class AddCoverToProjectService implements AddCoverToProjectUseCase {
     // project
     const project: Project = await this.projectRepo.getProjectByProjectID(command.projectID)
 
-    // create cover 
+    // create cover
     const coverProps: ProjectCoverProps = command.getProjectCoverProps()
-    const projectCover = ProjectCover.create(coverProps)
-    
+    const projectCover: ProjectCover = ProjectCover.create(coverProps)
+
     // move uploaded file to destination
     await this.mediaRepo.saveMedia(coverProps.cover, projectCover.filename)
 
