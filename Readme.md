@@ -43,12 +43,20 @@ File Upload
   
 Log
 
-* pino
+* [pino](https://getpino.io/#/)
 
 Testing
 
-* jest
+* [jest](https://jestjs.io/)
 
+Image:
+
+* [Jimp](https://github.com/oliver-moran/jimp)
+
+Auth :
+
+* [basic auth](https://github.com/LionC/express-basic-auth) : express middleware
+* [jwt auth](https://github.com/auth0/express-jwt) : express middleware
 
 ## Architecture design
 
