@@ -21,7 +21,7 @@ import { GetAllProjectsService } from './core/service/GetAllProjectsService'
 import { GetProjectByProjectIDService } from './core/service/GetProjectByProjectIDService'
 import { CreateProjectService } from './core/service/CreateProjectService'
 import { AddCoverToProjectService } from './core/service/AddCoverToProjectService'
-import { InMemoryMediaRepo } from './adapters/persistence/InMemoryMediaRepo'
+import { FilesystemMediaRepo } from './adapters/persistence/FilesystemMediaRepo'
 import { MEDIA_TARGET, upload } from './uploadConfig'
 import { ProjectCoverID } from './core/domain/ProjectCoverID';
 
@@ -41,7 +41,7 @@ configureDefaultRoutes(app)
 // projects repo
 const projectRepo = new InMemoryProjectRepo()
 projectRepo.loadfakeData()
-const mediaRepo = new InMemoryMediaRepo(MEDIA_TARGET, logger)
+const mediaRepo = new FilesystemMediaRepo(MEDIA_TARGET, logger)
 // projects services
 const getAllProjects = new GetAllProjectsService(projectRepo, logger)
 const getProjectByProjectIDService = new GetProjectByProjectIDService(projectRepo, logger)

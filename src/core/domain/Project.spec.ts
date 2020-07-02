@@ -5,10 +5,7 @@ import { ProjectProps } from './ProjectProps';
 
 describe('Project', () => {
 
-  beforeEach(() => {
-  })
-
-  describe.each([[{ title: '' }], [{ title: 'te' }]])('create project with invalid data should fails', (data) => {
+  describe.each([[{ title: '' }], [{ title: 'te' }]])('cannot create project with invalid data', (data) => {
     test(`with data ${JSON.stringify(data)}`, () => {
       expect(() => {
          Project.create(data as ProjectProps)
@@ -26,7 +23,7 @@ describe('Project', () => {
     expect(project.updatedAt).toBeDefined()
 })
 
-  it('create project with minimal props', async () => {
+  it('can create project with minimal props', async () => {
 
     const project:Project = Project.create({ title: 'test' } as ProjectProps)
 
@@ -35,7 +32,7 @@ describe('Project', () => {
     expect(project.projectID).toBeDefined()
 
 })
-  it('create project with all props', async () => {
+  it('can create project with all props', async () => {
 
       const project:Project = Project.create({ title: 'test', description: 'my descr', categoryID: 'cat1' } as ProjectProps)
 

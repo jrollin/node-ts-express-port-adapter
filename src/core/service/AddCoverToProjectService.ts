@@ -21,11 +21,11 @@ export class AddCoverToProjectService implements AddCoverToProjectUseCase {
     // project
     const project: Project = await this.projectRepo.getProjectByProjectID(command.projectID)
 
-    // add cover to project
-    const coverProps: ProjectCoverProps = command.getProjectCover()
+    // create cover 
+    const coverProps: ProjectCoverProps = command.getProjectCoverProps()
     const projectCover = ProjectCover.create(coverProps)
     
-    // move file to destination
+    // move uploaded file to destination
     await this.mediaRepo.saveMedia(coverProps.cover, projectCover.filename)
 
     // add cover to project

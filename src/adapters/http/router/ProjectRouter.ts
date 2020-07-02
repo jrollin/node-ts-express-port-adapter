@@ -8,7 +8,7 @@ import { ProjectMapper } from '../rest/dto/ProjectMapper'
 import { ProjectCollectionMapper } from '../rest/dto/ProjectCollectionMapper'
 import { ValidationError } from '../../../core/domain/ValidationError'
 import { LoggerGateway } from '../../../core/port/LoggerGateway'
-import multer from 'multer'
+import { Media } from '../../../core/domain/Media';
 
 export const configureProjectRouter = (
   app: Application,
@@ -20,8 +20,6 @@ export const configureProjectRouter = (
   logger: LoggerGateway
 ) => {
   const router = express.Router()
-
-
 
   // get all projects
   router.get('/', async (req: Request, res: Response) => {
@@ -60,11 +58,17 @@ export const configureProjectRouter = (
     return res.sendStatus(201)
   })
 
-  // create project
+  // upload cover
   router.post('/:id/covers', upload.single('cover'), async (req: Request, res: Response) => {
     const file: Express.Multer.File = req.file
     const { title } = req.body
-    const command = new AddCoverToProjectCommand(req.params.id, file, title)
+    const media: Media = {
+      name: file.filename,
+      mimeType: file.mimetype,
+      path: file.path,
+      size: file.size,
+    }
+    const command = new AddCoverToProjectCommand(req.params.id, media, title)
     await addCoverToProject.addCoverToProject(command)
 
     return res.sendStatus(201)

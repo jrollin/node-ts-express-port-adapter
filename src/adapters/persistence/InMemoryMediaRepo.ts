@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
 import * as path from 'path'
 import { MediaRepo } from '../../core/port/MediaRepo'
@@ -6,16 +5,17 @@ import { Media } from '../../core/domain/Media'
 import { LoggerGateway } from '../../core/port/LoggerGateway'
 
 export class InMemoryMediaRepo implements MediaRepo {
-  constructor(private destination: string, private logger: LoggerGateway) {}
+  
+  private medias: Media[] = []
+  
+  constructor(private logger: LoggerGateway) {}
 
   saveMedia(media: Media, filename: string): Promise<Media> {
-    try {
-      const newPath = path.join(this.destination, filename)
-      fs.renameSync(media.path, newPath)
-    } catch (err) {
-      this.logger.error(err)
-      throw err
-    }
+    this.medias.push(media)
     return Promise.resolve(media)
+  }
+
+  getMedias(): Media[] {
+    return this.medias
   }
 }

@@ -1,5 +1,9 @@
 import { ProjectCoverID } from './ProjectCoverID';
 import { ProjectCoverProps } from './ProjectCoverProps';
+import Validator from 'validatorjs'
+import { ProjectCoverPropsValidation } from './ProjectCoverPropsValidation';
+import { ValidationError } from './ValidationError';
+import { ProjectID } from './ProjectID';
 
 export class ProjectCover {
 
@@ -7,6 +11,7 @@ export class ProjectCover {
   private props: ProjectCoverProps
 
   private constructor(props: ProjectCoverProps, id?: ProjectCoverID) {
+    this.validate(props)
     this.id = id ? id : ProjectCoverID.create()
     this.props = props
   }
@@ -15,8 +20,19 @@ export class ProjectCover {
     return new ProjectCover(props, id)
   }
 
+  private validate(props: any): void {
+    const validation = new Validator(props, ProjectCoverPropsValidation)
+    if (validation.fails()) {
+      throw new ValidationError(validation.errors)
+    }
+  }
+
   get projectCoverId(): ProjectCoverID {
     return this.id
+  }
+
+  get projectId(): ProjectID{
+    return this.props.projectID
   }
 
   get title(): string {

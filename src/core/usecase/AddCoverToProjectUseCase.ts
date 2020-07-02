@@ -8,26 +8,20 @@ export interface AddCoverToProjectUseCase {
 
 export class AddCoverToProjectCommand {
   readonly projectID: ProjectID
-  readonly file: Express.Multer.File
+  readonly file: Media
   readonly title: string
 
-  constructor(id: string, file: Express.Multer.File, title: string) {
-    this.projectID = ProjectID.create(id)
+  constructor(projectId: string, file: Media, title: string) {
+    this.projectID = ProjectID.create(projectId)
     this.file = file
     this.title = title
   }
 
-  getProjectCover(): ProjectCoverProps {
-    const file: Media = {
-      name: this.file.filename,
-      mimeType: this.file.mimetype,
-      path: this.file.path,
-      size: this.file.size,
-    }
+  getProjectCoverProps(): ProjectCoverProps {
     return {
       projectID: this.projectID,
       title: this.title,
-      cover: file,
+      cover: this.file,
     }
   }
 }

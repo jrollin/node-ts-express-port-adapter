@@ -14,7 +14,7 @@ describe('CreateProjectService', () => {
     service = new CreateProjectService(projectRepo, logger)
   })
 
-  it('should create project', async () => {
+  it('can create project', async () => {
     const command: CreateProjectCommand = new CreateProjectCommand('test', 'description', '1')
     const res = await service.createProject(command)
 

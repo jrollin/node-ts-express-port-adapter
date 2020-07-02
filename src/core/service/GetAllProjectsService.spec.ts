@@ -15,13 +15,13 @@ describe('GetAllProjectsService', () => {
 
   
 
-  it('should send empty project collection when no data', async () => {
+  it('send empty collection when no project found', async () => {
     const projects = await service.getAllProjects()
 
     expect(projects).toHaveLength(0)
   })
 
-  it('should send 2 elements in project collection', async () => {
+  it('send 2 elements in project collection', async () => {
     projectRepo.loadfakeData()
     const projects = await service.getAllProjects()
 

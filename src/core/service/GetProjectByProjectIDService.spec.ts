@@ -14,7 +14,7 @@ describe('GetProjectByProjectIDService', () => {
     service = new GetProjectByProjectIDService(projectRepo, logger)
   })
 
-  it('should throw exception when project not found', async () => {
+  it('throw exception when project not found', async () => {
     try {
       await service.getProjectByProjectID('43')
       fail('exception not thrown')
@@ -23,7 +23,7 @@ describe('GetProjectByProjectIDService', () => {
     }
   })
 
-  it('should return project if found', async () => {
+  it('send project if found', async () => {
     projectRepo.loadfakeData()
     const project = await service.getProjectByProjectID('project2')
 
