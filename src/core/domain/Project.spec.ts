@@ -1,5 +1,5 @@
 import { ValidationError } from './ValidationError';
-import { CategoryID } from './CategoryID';
+import { CategoryId } from './CategoryId';
 import { Project } from './Project';
 import { ProjectProps } from './ProjectProps';
 
@@ -15,7 +15,7 @@ describe('Project', () => {
 
   it('can publish project', async () => {
 
-    const project:Project = Project.create({ title: 'test', description: 'my descr', categoryID: 'cat1' } as ProjectProps)
+    const project:Project = Project.create({ title: 'test', description: 'my descr', categoryId: 'cat1' } as ProjectProps)
     const publishedAt: Date = new Date('2019-11-02T00:00:01.30Z')
     project.publish(publishedAt)
 
@@ -29,17 +29,17 @@ describe('Project', () => {
 
     expect(project.title).toEqual('test')
     expect(project.createdAt).toBeDefined()
-    expect(project.projectID).toBeDefined()
+    expect(project.projectId).toBeDefined()
 
 })
   it('can create project with all props', async () => {
 
-      const project:Project = Project.create({ title: 'test', description: 'my descr', categoryID: 'cat1' } as ProjectProps)
+      const project:Project = Project.create({ title: 'test', description: 'my descr', categoryId: 'cat1' } as ProjectProps)
 
       expect(project.title).toEqual('test')
       expect(project.description).toEqual('my descr')
-      expect(project.categoryID).toEqual(CategoryID.create('cat1').toString())
+      expect(project.categoryId).toEqual(CategoryId.create('cat1').toString())
       expect(project.createdAt).toBeDefined()
-      expect(project.projectID).toBeDefined()
+      expect(project.projectId).toBeDefined()
   })
 })

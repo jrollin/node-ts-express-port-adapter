@@ -1,38 +1,38 @@
-import { ProjectCoverID } from './ProjectCoverID';
+import { ProjectCoverId } from './ProjectCoverId';
 import { ProjectCoverProps } from './ProjectCoverProps';
 import Validator from 'validatorjs'
 import { ProjectCoverPropsValidation } from './ProjectCoverPropsValidation';
 import { ValidationError } from './ValidationError';
-import { ProjectID } from './ProjectID';
+import { ProjectId } from './ProjectId';
 
 export class ProjectCover {
 
-  private readonly id: ProjectCoverID
+  private readonly id: ProjectCoverId
   private props: ProjectCoverProps
 
-  private constructor(props: ProjectCoverProps, id?: ProjectCoverID) {
-    this.validate(props)
-    this.id = id ? id : ProjectCoverID.create()
+  private constructor(props: ProjectCoverProps, id?: ProjectCoverId) {
+    ProjectCover.validate(props)
+    this.id = id ? id : ProjectCoverId.create()
     this.props = props
   }
 
-  static create(props: ProjectCoverProps, id?: ProjectCoverID): ProjectCover {
+  static create(props: ProjectCoverProps, id?: ProjectCoverId): ProjectCover {
     return new ProjectCover(props, id)
   }
 
-  private validate(props: any): void {
+  private static validate(props: any): void {
     const validation = new Validator(props, ProjectCoverPropsValidation)
     if (validation.fails()) {
       throw new ValidationError(validation.errors)
     }
   }
 
-  get projectCoverId(): ProjectCoverID {
+  get projectCoverId(): ProjectCoverId {
     return this.id
   }
 
-  get projectId(): ProjectID{
-    return this.props.projectID
+  get projectId(): ProjectId{
+    return this.props.projectId
   }
 
   get title(): string {

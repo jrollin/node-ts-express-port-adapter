@@ -1,4 +1,4 @@
-import { LoggerGateway } from '../../core/port/LoggerGateway'
+import {LoggerGateway} from '../../core/port/LoggerGateway'
 
 interface LogMessage {
   level: string
@@ -7,7 +7,7 @@ interface LogMessage {
 }
 
 export class InMemoryLoggerGateway implements LoggerGateway {
-  logs: LogMessage[] = new Array()
+  logs: LogMessage[] = []
 
   info(msg: string, context?: object): void {
     this.logs.push({ level: 'info', msg, context } as LogMessage)

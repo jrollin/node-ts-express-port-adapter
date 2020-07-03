@@ -18,7 +18,7 @@ describe('ProjectCover', () => {
       path: 'fakepath',
       size: 23,
     }
-    const cover: ProjectCover = ProjectCover.create({ title: 'test', projectID: 'pro1', cover: media } as ProjectCoverProps)
+    const cover: ProjectCover = ProjectCover.create({ title: 'test', projectId: 'pro1', cover: media } as ProjectCoverProps)
 
     expect(cover.title).toEqual('test')
   })

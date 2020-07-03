@@ -1,4 +1,4 @@
-import { ProjectID } from '../domain/ProjectID'
+import { ProjectId } from '../domain/ProjectId'
 import { ProjectCoverProps } from '../domain/ProjectCoverProps'
 import { Media } from '../domain/Media'
 
@@ -7,19 +7,19 @@ export interface AddCoverToProjectUseCase {
 }
 
 export class AddCoverToProjectCommand {
-  readonly projectID: ProjectID
+  readonly projectId: ProjectId
   readonly file: Media
   readonly title: string
 
   constructor(projectId: string, file: Media, title: string) {
-    this.projectID = ProjectID.create(projectId)
+    this.projectId = ProjectId.create(projectId)
     this.file = file
     this.title = title
   }
 
   getProjectCoverProps(): ProjectCoverProps {
     return {
-      projectID: this.projectID,
+      projectId: this.projectId,
       title: this.title,
       cover: this.file,
     }

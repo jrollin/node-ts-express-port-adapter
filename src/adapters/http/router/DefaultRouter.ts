@@ -1,5 +1,5 @@
-import express, { Application } from 'express'
-import { MEDIA_TARGET } from '../../../uploadConfig'
+import express, {Application, Request, Response} from 'express'
+import {MEDIA_TARGET} from '../../../uploadConfig'
 
 export const configureDefaultRoutes = (app: Application) => {
   const router = express.Router()
@@ -8,7 +8,7 @@ export const configureDefaultRoutes = (app: Application) => {
   app.use('/medias', express.static(MEDIA_TARGET))
 
   // homepage
-  router.get('/', (req: express.Request, res: express.Response) => {
+  router.get('/', (req: Request, res: Response) => {
     if (req.query.name) {
       return res.status(200).send('Hello ' + req.query.name + '!')
     }

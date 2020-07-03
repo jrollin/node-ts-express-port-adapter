@@ -15,7 +15,7 @@ describe('AddCoverToProjectService', () => {
   beforeEach(() => {
     logger = new InMemoryLoggerGateway()
     projectRepo = new InMemoryProjectRepo()
-    mediaRepo = new InMemoryMediaRepo(logger)
+    mediaRepo = new InMemoryMediaRepo()
     service = new AddCoverToProjectService(projectRepo, mediaRepo, logger)
   })
 

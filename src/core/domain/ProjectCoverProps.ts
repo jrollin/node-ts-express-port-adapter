@@ -1,8 +1,8 @@
-import { ProjectID } from './ProjectID';
+import { ProjectId } from './ProjectId';
 import { Media } from './Media';
 
 export interface ProjectCoverProps {
-  projectID: ProjectID;
+  projectId: ProjectId;
   title: string;
   cover: Media;
 }

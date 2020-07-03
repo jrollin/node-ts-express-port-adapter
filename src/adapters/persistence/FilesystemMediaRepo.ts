@@ -1,9 +1,8 @@
-import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
 import * as path from 'path'
-import { MediaRepo } from '../../core/port/MediaRepo'
-import { Media } from '../../core/domain/Media'
-import { LoggerGateway } from '../../core/port/LoggerGateway'
+import {MediaRepo} from '../../core/port/MediaRepo'
+import {Media} from '../../core/domain/Media'
+import {LoggerGateway} from '../../core/port/LoggerGateway'
 
 export class FilesystemMediaRepo implements MediaRepo {
   constructor(private destination: string, private logger: LoggerGateway) {}

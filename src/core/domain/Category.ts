@@ -1,6 +1,6 @@
-import { CategoryID } from './CategoryID'
+import { CategoryId } from './CategoryId'
 
 export interface Category {
-  id: CategoryID
+  id: CategoryId
   title: string
 }

@@ -1,8 +1,8 @@
 import { Project } from '../domain/Project'
-import { ProjectID } from '../domain/ProjectID'
+import { ProjectId } from '../domain/ProjectId'
 
 export interface ProjectRepo {
   getAllProjects(): Promise<Project[]>
-  getProjectByProjectID(projectID: ProjectID): Promise<Project>
+  getProjectByProjectId(projectID: ProjectId): Promise<Project>
   saveProject(project: Project): Promise<void>
 }

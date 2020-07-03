@@ -1,8 +1,8 @@
-import { Project } from '../../core/domain/Project'
-import { ProjectID } from '../../core/domain/ProjectID'
-import { ProjectRepo } from '../../core/port/ProjectRepo'
-import { ProjectFixture } from '../../fixtures/ProjectFixture';
-import { ProjectNotFound } from '../../core/port/ProjectNotFound';
+import {Project} from '../../core/domain/Project'
+import {ProjectId} from '../../core/domain/ProjectId'
+import {ProjectRepo} from '../../core/port/ProjectRepo'
+import {ProjectFixture} from '../../fixtures/ProjectFixture';
+import {ProjectNotFound} from '../../core/port/ProjectNotFound';
 
 export class InMemoryProjectRepo implements ProjectRepo {
   projects: Map<string, Project> = new Map()
@@ -11,8 +11,8 @@ export class InMemoryProjectRepo implements ProjectRepo {
     const projectDraft = ProjectFixture.draftProjectWithCategory()
     const projectPublished = ProjectFixture.publishedProjectWithCategory()
     // store in set
-    this.projects.set(projectDraft.projectID ? projectDraft.projectID.toString(): ProjectID.create().toString(), projectDraft)
-    this.projects.set(projectPublished.projectID ? projectPublished.projectID.toString(): ProjectID.create().toString(), projectPublished)
+    this.projects.set(projectDraft.projectId ? projectDraft.projectId.toString(): ProjectId.create().toString(), projectDraft)
+    this.projects.set(projectPublished.projectId ? projectPublished.projectId.toString(): ProjectId.create().toString(), projectPublished)
   }
 
   async getAllProjects(): Promise<Project[]> {
@@ -20,8 +20,8 @@ export class InMemoryProjectRepo implements ProjectRepo {
     return Promise.resolve(projects)
   }
 
-  async getProjectByProjectID(projectID: ProjectID): Promise<Project> {
-    const project = this.projects.get(projectID.toString())
+  async getProjectByProjectId(projectId: ProjectId): Promise<Project> {
+    const project = this.projects.get(projectId.toString())
     if (!project) {
       throw new ProjectNotFound('Project not found')
     }
@@ -31,7 +31,7 @@ export class InMemoryProjectRepo implements ProjectRepo {
 
   async saveProject (project: Project): Promise<void> {
 
-    this.projects.set(project.projectID.toString(), project)
+    this.projects.set(project.projectId.toString(), project)
     
     return Promise.resolve()
   }

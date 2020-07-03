@@ -19,7 +19,7 @@ export class AddCoverToProjectService implements AddCoverToProjectUseCase {
 
   async addCoverToProject(command: AddCoverToProjectCommand): Promise<void> {
     // project
-    const project: Project = await this.projectRepo.getProjectByProjectID(command.projectID)
+    const project: Project = await this.projectRepo.getProjectByProjectId(command.projectId)
 
     // create cover
     const coverProps: ProjectCoverProps = command.getProjectCoverProps()

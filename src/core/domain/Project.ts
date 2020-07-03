@@ -1,32 +1,32 @@
-import { ProjectID } from './ProjectID'
+import { ProjectId } from './ProjectId'
 import { ProjectProps } from './ProjectProps'
 import Validator from 'validatorjs'
 import { ValidationError } from './ValidationError'
 import { ProjectPropsValidation } from './ProjectPropsValidation'
-import { CategoryID } from './CategoryID'
+import { CategoryId } from './CategoryId'
 import { ProjectCover } from './ProjectCover';
 
 export class Project {
-  private readonly id: ProjectID
+  private readonly id: ProjectId
   private props: ProjectProps
   public readonly createdAt: Date
   public updatedAt?: Date
   public publishedAt?: Date
   private covers: ProjectCover[] = []
 
-  private constructor(props: ProjectProps, id?: ProjectID) {
-    this.validate(props)
-    this.id = id ? id : ProjectID.create()
+  private constructor(props: ProjectProps, id?: ProjectId) {
+    Project.validate(props)
+    this.id = id ? id : ProjectId.create()
     this.props = props
     this.createdAt = new Date()
   }
 
-  static create(props: ProjectProps, id?: ProjectID): Project {
+  static create(props: ProjectProps, id?: ProjectId): Project {
     return new Project(props, id)
   }
 
 
-  get projectID(): ProjectID {
+  get projectId(): ProjectId {
     return this.id
   }
 
@@ -38,11 +38,11 @@ export class Project {
     return this.props.description ? this.props.description : ''
   }
 
-  get categoryID(): CategoryID {
-    return this.props.categoryID
+  get categoryId(): CategoryId {
+    return this.props.categoryId
   }
 
-  private validate(props: any): void {
+  private static validate(props: any): void {
     const validation = new Validator(props, ProjectPropsValidation)
     if (validation.fails()) {
       throw new ValidationError(validation.errors)

@@ -1,6 +1,6 @@
-import { ProjectCoverDTO } from './ProjectCoverDTO'
+import {ProjectCoverDto} from './ProjectCoverDto'
 
-export interface ProjectDTO {
+export interface ProjectDto {
   id: string
   title: string
   description: string
@@ -8,5 +8,5 @@ export interface ProjectDTO {
   createdAt: Date
   updatedAt?: Date
   publishedAt?: Date
-  covers?: ProjectCoverDTO[]
+  covers?: ProjectCoverDto[]
 }

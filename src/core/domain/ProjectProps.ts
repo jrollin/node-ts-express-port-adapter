@@ -1,7 +1,7 @@
-import { CategoryID } from './CategoryID';
+import { CategoryId } from './CategoryId';
 
 export interface ProjectProps {
   title: string;
   description?: string;
-  categoryID: CategoryID;
+  categoryId: CategoryId;
 }
