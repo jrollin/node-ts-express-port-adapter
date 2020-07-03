@@ -8,19 +8,25 @@ import bodyParser from 'body-parser'
 import {PinoLoggerGateway} from './adapters/gateway/PinoLoggerGateway'
 import {configureProjectRouter} from './adapters/http/router/ProjectRouter'
 import {InMemoryProjectRepo} from './adapters/persistence/InMemoryProjectRepo'
-import {configureDefaultRoutes} from './adapters/http/router/DefaultRouter'
 import {GetAllProjectsService} from './core/service/GetAllProjectsService'
 import {GetProjectByProjectIdService} from './core/service/GetProjectByProjectIdService'
 import {CreateProjectService} from './core/service/CreateProjectService'
 import {AddCoverToProjectService} from './core/service/AddCoverToProjectService'
 import {FilesystemMediaRepo} from './adapters/persistence/FilesystemMediaRepo'
-import {MEDIA_TARGET, upload} from './uploadConfig'
+import {upload} from './uploadConfig'
+import {configureDefaultRoutes} from './adapters/http/router/DefaultRouter'
 import {configureErrorHandler} from './adapters/http/router/ErrorHandler';
+import {configureAuthRouter} from './adapters/http/router/AuthRouter';
 
 // config
 dotenv.config()
+
 if (!process.env.PORT) {
   pino().error('PORT is not defined')
+  process.exit(1)
+}
+if (!process.env.MEDIA_URL) {
+  pino().error('MEDIA_URL is not defined')
   process.exit(1)
 }
 
@@ -38,8 +44,8 @@ app.use(cors())
 // projects repo
 const projectRepo = new InMemoryProjectRepo()
 projectRepo.loadfakeData()
-const mediaRepo = new FilesystemMediaRepo(MEDIA_TARGET, logger)
-// projects services
+const mediaRepo = new FilesystemMediaRepo(process.env.MEDIA_URL, logger)
+// // projects services
 const getAllProjects = new GetAllProjectsService(projectRepo, logger)
 const getProjectByProjectIDService = new GetProjectByProjectIdService(projectRepo, logger)
 const createProjectService = new CreateProjectService(projectRepo, logger)
@@ -55,13 +61,14 @@ configureProjectRouter(
     addCoverToProjectService,
     upload
 )
+configureAuthRouter(app, logger)
 // error handler middleware
-configureErrorHandler(app)
+configureErrorHandler(app, logger)
 
-// server
+// // server
 const PORT: number = parseInt(process.env.PORT as string, 10)
 app.listen(PORT, () => {
-  logger.info('Started server ', {PORT})
+  logger.info('Started server', {PORT})
   process.on('SIGABRT', cleanTerminate)
   process.on('SIGINT', cleanTerminate)
   process.on('SIGBREAK', cleanTerminate)

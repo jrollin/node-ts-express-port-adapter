@@ -1,7 +1,6 @@
 import * as path from 'path';
 import multer from 'multer';
 
-export const MEDIA_URL = process.env.MEDIA_URL ?  process.env.MEDIA_URL : process.exit(1)
 export const MEDIA_TARGET = path.join(path.dirname(__dirname), 'medias');
 export const UPLOAD_TARGET = path.join(path.dirname(__dirname), 'tmp');
 // image only
