@@ -72,3 +72,58 @@ TODO : mappers
 * From Domain to DTO
 * From Domain to Persistence : @TODO
 * From Persistence to Domain : @TODO
+
+
+### Keycloak
+
+Launch keycloak server :  http://locahost:8080
+
+```bash
+docker-compose up
+```
+
+
+#### Config
+
+ * realm : create realm with openid connect
+ * client > settings : ensure standard flow and direct grant selected
+ * roles > create role 'user'
+ * client scope:  create scope 'skills' (disable consent)
+ * client > scopes :  add 'skills' to default scope selected
+
+Do not use Implicit Flow (deprecated) but Authorization Code Grant Flow with PKCE
+
+[Video about PKCE flow](https://www.youtube.com/watch?v=CHzERullHe8)
+
+
+JSON Web Keys(JWKs) returned by authorization server endpoint
+
+```bash
+http://localhost:8080/auth/realms/myrealm/protocol/openid-connect/certs
+```
+
+
+#### Example 1 : Direct Access Grants (if Enabled)
+
+Possible to retrieve token with username/password
+
+```bash
+$export TOKEN=$(curl -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=express-portfolio" \
+  -d "username=myuser" \
+  -d "password=mypass" \
+  -d "grant_type=password" \
+  -X POST http://localhost:8080/auth/realms/myrealm/protocol/openid-connect/token | jq -r .access_token)
+$echo $TOKEN
+```
+
+#### Example 2 : Authorization Code Grant Flow with PKCE
+
+ref : https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce
+
+* create code verifier
+* create code challenge from verifier
+* Get the User's Authorization with code challenge
+* Exchange the Authorization Code for an Access Token
+* Call the API  with Bearer :)
+* verify token  (JWT, claims, perms)
