@@ -6,10 +6,25 @@ Status : WIP / draft
 
 Manage a project portfolio with ddd and port/adapter pattern
 
-
 ## Stack
 
 Node + Typescript  + Express
+
+## Required
+
+SSL certificate for Https
+
+```bash
+openssl req -nodes -new -x509 -keyout server.key -out server.cert
+```
+
+> nb : auto signed certificate show security warnings in recent browser. Accept or buy an official certificate
+
+Define your own env file
+
+```bash
+cp .env.template .env
+```
 
 ### Dependencies 
 

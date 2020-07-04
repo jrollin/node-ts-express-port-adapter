@@ -1,10 +1,12 @@
-import * as dotenv from 'dotenv'
+import https from 'https'
+import * as fs from 'fs'
 import pino from 'pino'
 import express from 'express'
 import morgan from 'morgan'
 import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import {checkConfig} from './config';
 import {PinoLoggerGateway} from './adapters/gateway/PinoLoggerGateway'
 import {configureProjectRouter} from './adapters/http/router/ProjectRouter'
 import {InMemoryProjectRepo} from './adapters/persistence/InMemoryProjectRepo'
@@ -13,25 +15,18 @@ import {GetProjectByProjectIdService} from './core/service/GetProjectByProjectId
 import {CreateProjectService} from './core/service/CreateProjectService'
 import {AddCoverToProjectService} from './core/service/AddCoverToProjectService'
 import {FilesystemMediaRepo} from './adapters/persistence/FilesystemMediaRepo'
-import {upload} from './uploadConfig'
+import {configUpload} from './uploadConfig'
 import {configureDefaultRoutes} from './adapters/http/router/DefaultRouter'
 import {configureErrorHandler} from './adapters/http/router/ErrorHandler';
 import {configureAuthRouter} from './adapters/http/router/AuthRouter';
-
-// config
-dotenv.config()
-
-if (!process.env.PORT) {
-  pino().error('PORT is not defined')
-  process.exit(1)
-}
-if (!process.env.MEDIA_URL) {
-  pino().error('MEDIA_URL is not defined')
-  process.exit(1)
-}
+import * as dotenv from 'dotenv';
 
 // logger
 const logger = new PinoLoggerGateway(pino())
+
+// config
+dotenv.config()
+const {PORT, UPLOAD_TARGET, MEDIA_TARGET, SSL_CERT, SSL_KEY} = checkConfig(logger)
 
 // express
 const app: express.Application = express()
@@ -40,19 +35,20 @@ app.use(morgan('tiny'))
 app.use(helmet())
 app.use(cors())
 
-
 // projects repo
 const projectRepo = new InMemoryProjectRepo()
 projectRepo.loadfakeData()
-const mediaRepo = new FilesystemMediaRepo(process.env.MEDIA_URL, logger)
+const mediaRepo = new FilesystemMediaRepo(MEDIA_TARGET, logger)
 // // projects services
 const getAllProjects = new GetAllProjectsService(projectRepo, logger)
 const getProjectByProjectIDService = new GetProjectByProjectIdService(projectRepo, logger)
 const createProjectService = new CreateProjectService(projectRepo, logger)
 const addCoverToProjectService = new AddCoverToProjectService(projectRepo, mediaRepo, logger)
 
-// routes
-configureDefaultRoutes(app)
+// default routes
+configureDefaultRoutes(app, MEDIA_TARGET)
+// projects routes
+const upload = configUpload(UPLOAD_TARGET)
 configureProjectRouter(
     app,
     getAllProjects,
@@ -61,20 +57,24 @@ configureProjectRouter(
     addCoverToProjectService,
     upload
 )
+// auth routes
 configureAuthRouter(app, logger)
 // error handler middleware
 configureErrorHandler(app, logger)
 
-// // server
-const PORT: number = parseInt(process.env.PORT as string, 10)
-app.listen(PORT, () => {
-  logger.info('Started server', {PORT})
-  process.on('SIGABRT', cleanTerminate)
-  process.on('SIGINT', cleanTerminate)
-  process.on('SIGBREAK', cleanTerminate)
-})
+// server
+https.createServer({
+  key: fs.readFileSync(SSL_KEY),
+  cert: fs.readFileSync(SSL_CERT)
+}, app)
+    .listen(PORT, () => {
+      logger.info('Started server', {PORT})
+      process.on('SIGABRT', cleanTerminate)
+      process.on('SIGINT', cleanTerminate)
+      process.on('SIGBREAK', cleanTerminate)
+    })
 // track server termination
 const cleanTerminate = (signal: NodeJS.Signals): void => {
-  logger.info('cleaning before terminating process ...', { signal })
+  logger.info('cleaning before terminating process ...', {signal})
   process.exit(0)
 }

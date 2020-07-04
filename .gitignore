@@ -6,3 +6,6 @@ tmp
 medias/*
 
 .env
+
+server.cert
+server.key

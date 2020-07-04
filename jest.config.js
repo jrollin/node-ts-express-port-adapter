@@ -1,4 +1,4 @@
-// jest.config.js
+// jest.config.ts
 module.exports = {
   verbose: true,
   transform:  {
