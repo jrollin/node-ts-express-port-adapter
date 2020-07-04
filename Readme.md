@@ -40,7 +40,8 @@ Packages :
 * [body-parser](https://www.npmjs.com/package/body-parser) : parse body middleware
 * [cors](https://www.npmjs.com/package/cors) 
 * [helmet](https://www.npmjs.com/package/helmet) : security middleware 
-* [morgan](https://www.npmjs.com/package/morgan) : logger middleware  
+* [morgan](https://www.npmjs.com/package/morgan) : logger middleware
+
 
 Conventions
 
@@ -73,6 +74,7 @@ Auth :
 * [basic auth](https://github.com/LionC/express-basic-auth) : express middleware
 * [jwt auth](https://github.com/auth0/express-jwt) : express middleware
 
+
 ## Architecture design
 
 * DDD
@@ -89,7 +91,7 @@ TODO : mappers
 * From Persistence to Domain : @TODO
 
 
-### Keycloak
+### Keycloak
 
 Launch keycloak server :  http://locahost:8080
 
@@ -97,6 +99,12 @@ Launch keycloak server :  http://locahost:8080
 docker-compose up
 ```
 
+admin credentials (defined in docker-compose.yml)
+
+```bash
+admin
+Pa55w0rd
+```
 
 #### Config
 
@@ -118,7 +126,7 @@ http://localhost:8080/auth/realms/myrealm/protocol/openid-connect/certs
 ```
 
 
-#### Example 1 : Direct Access Grants (if Enabled)
+#### Example 1 : Direct Access Grants (if Enabled)
 
 Possible to retrieve token with username/password
 
@@ -132,7 +140,7 @@ $export TOKEN=$(curl -H "Content-Type: application/x-www-form-urlencoded" \
 $echo $TOKEN
 ```
 
-#### Example 2 : Authorization Code Grant Flow with PKCE
+#### Example 2 : Authorization Code Grant Flow with PKCE
 
 ref : https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce
 
@@ -142,3 +150,11 @@ ref : https://auth0.com/docs/api-auth/tutorials/authorization-code-grant-pkce
 * Exchange the Authorization Code for an Access Token
 * Call the API  with Bearer :)
 * verify token  (JWT, claims, perms)
+
+
+Infos :
+
+* store verify code with state in cookie
+* use cookie-parser middleware to retrieve cookie
+
+
