@@ -15,7 +15,8 @@ Node + Typescript  + Express
 SSL certificate for Https
 
 ```bash
-openssl req -nodes -new -x509 -keyout server.key -out server.cert
+mkdir certificates
+openssl req -nodes -new -x509 -keyout ./certificates/server.key -out ./certificates/server.cert
 ```
 
 > nb : auto signed certificate show security warnings in recent browser. Accept or buy an official certificate

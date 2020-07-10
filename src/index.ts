@@ -6,7 +6,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import {checkConfig} from './config';
+import {checkConfig} from './config'
 import {PinoLoggerGateway} from './adapters/gateway/PinoLoggerGateway'
 import {configureProjectRouter} from './adapters/http/router/ProjectRouter'
 import {InMemoryProjectRepo} from './adapters/persistence/InMemoryProjectRepo'
@@ -17,9 +17,9 @@ import {AddCoverToProjectService} from './core/service/AddCoverToProjectService'
 import {FilesystemMediaRepo} from './adapters/persistence/FilesystemMediaRepo'
 import {configUpload} from './uploadConfig'
 import {configureDefaultRoutes} from './adapters/http/router/DefaultRouter'
-import {configureErrorHandler} from './adapters/http/router/ErrorHandler';
-import {configureAuthRouter} from './adapters/http/router/AuthRouter';
-import * as dotenv from 'dotenv';
+import {configureErrorHandler} from './adapters/http/router/ErrorHandler'
+import {configureAuthRouter} from './adapters/http/router/AuthRouter'
+import * as dotenv from 'dotenv'
 
 // logger
 const logger = new PinoLoggerGateway(pino())
@@ -39,7 +39,7 @@ app.use(cors())
 const projectRepo = new InMemoryProjectRepo()
 projectRepo.loadfakeData()
 const mediaRepo = new FilesystemMediaRepo(MEDIA_TARGET, logger)
-// // projects services
+// projects services
 const getAllProjects = new GetAllProjectsService(projectRepo, logger)
 const getProjectByProjectIDService = new GetProjectByProjectIdService(projectRepo, logger)
 const createProjectService = new CreateProjectService(projectRepo, logger)
