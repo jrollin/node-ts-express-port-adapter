@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv'
 import https from 'https'
 import * as fs from 'fs'
 import pino from 'pino'
@@ -6,7 +7,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import {checkConfig} from './config'
+import {loadConfig} from './config'
 import {PinoLoggerGateway} from './adapters/gateway/PinoLoggerGateway'
 import {configureProjectRouter} from './adapters/http/router/ProjectRouter'
 import {InMemoryProjectRepo} from './adapters/persistence/InMemoryProjectRepo'
@@ -19,14 +20,17 @@ import {configUpload} from './uploadConfig'
 import {configureDefaultRoutes} from './adapters/http/router/DefaultRouter'
 import {configureErrorHandler} from './adapters/http/router/ErrorHandler'
 import {configureAuthRouter} from './adapters/http/router/AuthRouter'
-import * as dotenv from 'dotenv'
 
 // logger
 const logger = new PinoLoggerGateway(pino())
 
 // config
 dotenv.config()
-const {PORT, UPLOAD_TARGET, MEDIA_TARGET, SSL_CERT, SSL_KEY} = checkConfig(logger)
+const {
+    PORT, SSL_CERT, SSL_KEY,
+    UPLOAD_TARGET, MEDIA_TARGET,
+    OPENID_CLIENT_ID, OPENID_REDIRECT_URL, OPENID_AUTH_URL, OPENID_TOKEN_URL
+} = loadConfig(logger)
 
 // express
 const app: express.Application = express()
@@ -58,7 +62,14 @@ configureProjectRouter(
     upload
 )
 // auth routes
-configureAuthRouter(app, logger)
+configureAuthRouter(
+    app,
+    logger,
+    OPENID_CLIENT_ID,
+    OPENID_REDIRECT_URL,
+    OPENID_AUTH_URL,
+    OPENID_TOKEN_URL
+)
 // error handler middleware
 configureErrorHandler(app, logger)
 
