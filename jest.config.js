@@ -4,5 +4,10 @@ module.exports = {
   transform:  {
     "\\.(ts)$": "ts-jest"
   },
-  rootDir: './src'
+  roots: [
+    "<rootDir>/src/",
+  ],
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/fixtures",
+  ]
 }
