@@ -2,7 +2,7 @@
 
 Status : WIP / draft
 
-[![CircleCI](https://circleci.com/gh/jrollin/node-ts-express-port-adapter.svg?style=svg)](https://circleci.com/gh/jrollin/node-ts-express-port-adapter)
+[![Build Status](https://github.com/jrollin/node-ts-express-port-adapter/actions/workflows/test.yml/badge.svg)](https://github.com/jrollin/node-ts-express-port-adapter/actions/workflows/test.yml)
 
 Manage a project portfolio with ddd and port/adapter pattern
 
