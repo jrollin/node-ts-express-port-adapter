@@ -1,3 +1,3 @@
-import {ProjectDto} from './ProjectDto'
+import { ProjectDto } from './ProjectDto';
 
-export type ProjectCollectionDto = ProjectDto[]
+export type ProjectCollectionDto = ProjectDto[];

@@ -1,5 +1,5 @@
-import { Project } from '../domain/Project'
+import { Project } from '../domain/Project';
 
 export interface GetAllProjectsUseCase {
-  getAllProjects(): Promise<Project[]>
+  getAllProjects(): Promise<Project[]>;
 }

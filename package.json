@@ -10,7 +10,8 @@
     "test:coverage": "jest --coverage",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\""
   },
   "author": "",
   "license": "ISC",
