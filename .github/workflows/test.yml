@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts
 
-    - name: Dependencies 
-      run: npm ci
+      - name: Dependencies
+        run: npm ci
 
-    - name: test
-      run: npm run test
+      - name: test
+        run: npm run test

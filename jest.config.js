@@ -1,13 +1,10 @@
-// jest.config.ts
 module.exports = {
-  verbose: true,
-  transform:  {
-    "\\.(ts)$": "ts-jest"
-  },
-  roots: [
-    "<rootDir>/src/",
-  ],
-  coveragePathIgnorePatterns: [
-    "<rootDir>/src/fixtures",
-  ]
+    transform: {
+        '^.+\\.ts?$': 'ts-jest',
+    },
+    testEnvironment: 'node',
+    testRegex: './src/.*\\.(test|spec)?\\.(ts|ts)$',
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    roots: ['<rootDir>/src'],
+    coveragePathIgnorePatterns: ['<rootDir>/src/fixtures'],
 }
