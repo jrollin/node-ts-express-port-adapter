@@ -1,14 +1,25 @@
 {
-  "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "es2022",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
-  },
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "es2022",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "paths": {
+            "@core/*": ["src/core/*"],
+            "@adapters/*": ["src/adapters/*"],
+            "@fixtures/*": ["src/fixtures/*"],
+            "@utils/*": ["src/utils/*"]
+        }
+    },
 
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"],
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    }
 }

@@ -2,50 +2,50 @@ import { ProjectRepo } from '../port/ProjectRepo';
 import { Project } from '../domain/Project';
 import { LoggerGateway } from '../port/LoggerGateway';
 import {
-  AddCoverToProjectCommand,
-  AddCoverToProjectUseCase,
+    AddCoverToProjectCommand,
+    AddCoverToProjectUseCase,
 } from '../usecase/AddCoverToProjectUseCase';
 import { ProjectCover } from '../domain/ProjectCover';
 import { ProjectCoverProps } from '../domain/ProjectCoverProps';
 import { MediaRepo } from '../port/MediaRepo';
 
 export class AddCoverToProjectService implements AddCoverToProjectUseCase {
-  projectRepo: ProjectRepo;
-  mediaRepo: MediaRepo;
-  logger: LoggerGateway;
+    projectRepo: ProjectRepo;
+    mediaRepo: MediaRepo;
+    logger: LoggerGateway;
 
-  constructor(
-    projectRepo: ProjectRepo,
-    mediaRepo: MediaRepo,
-    logger: LoggerGateway,
-  ) {
-    this.projectRepo = projectRepo;
-    this.mediaRepo = mediaRepo;
-    this.logger = logger;
-  }
+    constructor(
+        projectRepo: ProjectRepo,
+        mediaRepo: MediaRepo,
+        logger: LoggerGateway,
+    ) {
+        this.projectRepo = projectRepo;
+        this.mediaRepo = mediaRepo;
+        this.logger = logger;
+    }
 
-  async addCoverToProject(command: AddCoverToProjectCommand): Promise<void> {
-    // project
-    const project: Project = await this.projectRepo.getProjectByProjectId(
-      command.projectId,
-    );
+    async addCoverToProject(command: AddCoverToProjectCommand): Promise<void> {
+        // project
+        const project: Project = await this.projectRepo.getProjectByProjectId(
+            command.projectId,
+        );
 
-    // create cover
-    const coverProps: ProjectCoverProps = command.getProjectCoverProps();
-    const projectCover: ProjectCover = ProjectCover.create(coverProps);
+        // create cover
+        const coverProps: ProjectCoverProps = command.getProjectCoverProps();
+        const projectCover: ProjectCover = ProjectCover.create(coverProps);
 
-    // move uploaded file to destination
-    await this.mediaRepo.saveMedia(coverProps.cover, projectCover.filename);
+        // move uploaded file to destination
+        await this.mediaRepo.saveMedia(coverProps.cover, projectCover.filename);
 
-    // add cover to project
-    project.addCover(projectCover);
+        // add cover to project
+        project.addCover(projectCover);
 
-    // persist
-    await this.projectRepo.saveProject(project);
+        // persist
+        await this.projectRepo.saveProject(project);
 
-    // notify ?
-    this.logger.info('Project cover added');
+        // notify ?
+        this.logger.info('Project cover added');
 
-    return Promise.resolve();
-  }
+        return Promise.resolve();
+    }
 }

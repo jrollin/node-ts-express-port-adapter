@@ -1,3 +1,3 @@
 export const ProjectPropsValidation: any = {
-  title: 'required|min:3',
+    title: 'required|min:3',
 };
