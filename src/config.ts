@@ -48,14 +48,8 @@ export const loadConfig = (logger: LoggerGateway) => {
         process.exit(1);
     }
 
-    const MEDIA_TARGET = path.join(
-        path.dirname(__dirname),
-        process.env.MEDIA_TARGET,
-    );
-    const UPLOAD_TARGET = path.join(
-        path.dirname(__dirname),
-        process.env.UPLOAD_TARGET,
-    );
+    const MEDIA_TARGET = path.join(process.cwd(), process.env.MEDIA_TARGET);
+    const UPLOAD_TARGET = path.join(process.cwd(), process.env.UPLOAD_TARGET);
 
     return {
         PORT: process.env.PORT,

@@ -64,7 +64,7 @@ Log
 
 Testing
 
-- [jest](https://jestjs.io/)
+- [vitest](https://vitest.dev/)
 
 Image:
 

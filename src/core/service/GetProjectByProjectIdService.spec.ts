@@ -17,7 +17,7 @@ describe('GetProjectByProjectIdService', () => {
     it('throw exception when project not found', async () => {
         try {
             await service.getProjectByProjectID('43');
-            fail('exception not thrown');
+            expect.fail('exception not thrown');
         } catch (err) {
             expect(err).toBeInstanceOf(ProjectNotFound);
         }

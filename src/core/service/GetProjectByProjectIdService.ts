@@ -4,9 +4,7 @@ import { GetProjectByProjectIdUseCase } from '../usecase/GetProjectByProjectIdUs
 import { ProjectId } from '../domain/ProjectId';
 import { LoggerGateway } from '../port/LoggerGateway';
 
-export class GetProjectByProjectIdService
-    implements GetProjectByProjectIdUseCase
-{
+export class GetProjectByProjectIdService implements GetProjectByProjectIdUseCase {
     projectRepo: ProjectRepo;
     logger: LoggerGateway;
 

@@ -34,7 +34,7 @@ describe('AddCoverToProjectService', () => {
 
         try {
             await service.addCoverToProject(command);
-            fail('exception not thrown');
+            expect.fail('exception not thrown');
         } catch (err) {
             expect(err).toBeInstanceOf(ProjectNotFound);
         }

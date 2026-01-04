@@ -14,7 +14,8 @@
             "@adapters/*": ["src/adapters/*"],
             "@fixtures/*": ["src/fixtures/*"],
             "@utils/*": ["src/utils/*"]
-        }
+        },
+        "types": ["node"]
     },
 
     "include": ["src/**/*"],

@@ -1,7 +1,7 @@
 import { LoggerGateway } from '@core/port/LoggerGateway';
 
 export class PinoLoggerGateway implements LoggerGateway {
-    constructor(private pino: any) { }
+    constructor(private pino: any) {}
     info(msg: string, context?: object): void {
         if (!context) {
             this.pino.info(msg);
