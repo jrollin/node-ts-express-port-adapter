@@ -3,19 +3,18 @@ name: NodeJS
 on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+        steps:
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24
+                  cache: 'npm'
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
+            - name: Dependencies
+              run: npm ci
 
-      - name: Dependencies
-        run: npm ci
-
-      - name: test
-        run: npm run test
+            - name: test
+              run: npm run test
