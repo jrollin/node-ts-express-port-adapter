@@ -38,7 +38,7 @@
         "morgan": "^1.10.0",
         "multer": ">=2.0.2",
         "pino": "^10.1.0",
-        "uuid": "^13.0.0",
+        "uuid": "^14.0.0",
         "validatorjs": "^3.22.1"
     },
     "devDependencies": {
